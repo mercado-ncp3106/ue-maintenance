@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
+</head>
+<body>
+
+    <!--Login-->
+    <img src="assets\uelogo.png" alt="UE Logo" class="ueLogo">
+
+    <input type="text" id="username" class="username" placeholder="Username" required>
+
+    <input type="password" id="password" class="password" placeholder="Password" required>
+
+    <button class="login" onclick="login()">Login</button>
+
+    <p id="error-message" class="error"></p>
+
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider"></span>
+      </label>
+
+    
+    <!--Login-->
+    <script>
+        function login() {
+        const correctUsername = "20230131723";
+        const correctPassword = "11/22/2004";
+
+        const enteredUsername = document.getElementById("username").value;
+        const enteredPassword = document.getElementById("password").value;
+        const errorMessage = document.getElementById("error-message");
+
+        if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+            window.location.href = "page2.html"; // ✅ go to second page
+        } else {
+            errorMessage.textContent = "Incorrect username or password!";
+        }
+        }
+    </script>
+
+    <!--Darkmode-->
+    <script>
+        const toggle = document.getElementById("darkModeToggle");
+      
+        toggle.addEventListener("change", function () {
+          document.body.classList.toggle("dark-mode", this.checked);
+        });
+      </script>
+      
+</body>
+</html>
