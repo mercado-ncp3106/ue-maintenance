@@ -4,53 +4,99 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Extra smooth circle movement inside slider */
+    .slider-circle {
+      transition: transform 0.4s ease, background-color 0.4s ease;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-white text-black transition-colors duration-500">
 
-    <!--Login-->
-    <img src="assets\uelogo.png" alt="UE Logo" class="ueLogo">
+  <!-- Logo -->
+  <div class="flex justify-center mt-10">
+    <img src="https://www.ue.edu.ph/mla/wp-content/uploads/2020/12/UE_RED_SEAL_09.png" alt="UE Logo" class="w-3/4 max-w-xs">
+  </div>
 
-    <input type="text" id="username" class="username" placeholder="Username" required>
-
-    <input type="password" id="password" class="password" placeholder="Password" required>
-
-    <button class="login" onclick="login()">Login</button>
-
-    <p id="error-message" class="error"></p>
-
-    <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider"></span>
+    <!-- Dark Mode Switch -->
+  <div class="flex justify-center mt-4">
+    <div class="w-3/4 flex justify-start">
+      <label class="relative inline-block w-14 h-8">
+        <input type="checkbox" id="darkModeToggle" class="hidden">
+        <!-- Slider Background -->
+        <span id="slider"
+          class="absolute inset-0 rounded-full bg-yellow-400 transition-colors duration-500 cursor-pointer flex items-center">
+          <!-- Circle -->
+          <span id="sliderCircle"
+            class="slider-circle flex items-center justify-center w-6 h-6 ml-1 rounded-full shadow-md text-lg">
+            ☀️
+          </span>
+        </span>
       </label>
+    </div>
+  </div>
 
-    
-    <!--Login-->
-    <script>
-        function login() {
-        const correctUsername = "20230131723";
-        const correctPassword = "11/22/2004";
+  <!-- Username -->
+  <div class="flex justify-center mt-3">
+    <input type="text" id="username" placeholder="Username" required
+      class="w-3/4 max-w-md h-12 px-3 text-white text-lg rounded-md outline-none 
+            bg-gradient-to-b from-[#731919] to-[#e52b2b] placeholder-white/70">
+  </div>
 
-        const enteredUsername = document.getElementById("username").value;
-        const enteredPassword = document.getElementById("password").value;
-        const errorMessage = document.getElementById("error-message");
+  <!-- Password -->
+  <div class="flex justify-center mt-6">
+    <input type="password" id="password" placeholder="Password" required
+      class="w-3/4 max-w-md h-12 px-3 text-white text-lg rounded-md outline-none bg-gradient-to-b from-[#731919] to-[#e52b2b] placeholder-white/70">
+  </div>
 
-        if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
-            window.location.href = "page2.html"; // ✅ go to second page
-        } else {
-            errorMessage.textContent = "Incorrect username or password!";
-        }
-        }
-    </script>
+  <!-- Login Button -->
+  <div class="flex justify-center mt-6">
+    <button onclick="login()" class="w-3/4 max-w-md h-12 rounded-md text-lg text-white cursor-pointer bg-gradient-to-b from-[#731919] to-[#e52b2b] hover:opacity-90 transition duration-300">
+      Login
+    </button>
+  </div>
 
-    <!--Darkmode-->
-    <script>
-        const toggle = document.getElementById("darkModeToggle");
-      
-        toggle.addEventListener("change", function () {
-          document.body.classList.toggle("dark-mode", this.checked);
-        });
-      </script>
-      
+  <!-- Error Message -->
+  <p id="error-message" class="text-red-600 text-center mt-3 text-sm"></p>
+
+  <!-- Login Script -->
+  <script>
+    function login() {
+      const correctUsername = "20230131723";
+      const correctPassword = "11/22/2004";
+
+      const enteredUsername = document.getElementById("username").value;
+      const enteredPassword = document.getElementById("password").value;
+      const errorMessage = document.getElementById("error-message");
+
+      if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+        window.location.href = "page2.html"; // ✅ go to second page
+      } else {
+        errorMessage.textContent = "Incorrect username or password!";
+      }
+    }
+
+    // Dark Mode Toggle
+    const toggle = document.getElementById("darkModeToggle");
+    const slider = document.getElementById("slider");
+    const sliderCircle = document.getElementById("sliderCircle");
+
+    toggle.addEventListener("change", function () {
+      document.body.classList.toggle("bg-black", this.checked);
+      document.body.classList.toggle("text-white", this.checked);
+
+      if (this.checked) {
+        slider.classList.replace("bg-yellow-400", "bg-gray-800");
+        sliderCircle.style.transform = "translateX(26px)";
+        sliderCircle.textContent = "🌙";
+      } else {
+        slider.classList.replace("bg-gray-800", "bg-yellow-400");
+        sliderCircle.style.transform = "translateX(0)";
+        sliderCircle.textContent = "☀️";
+      }
+    });
+  </script>
+
 </body>
 </html>
