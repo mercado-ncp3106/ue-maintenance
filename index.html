@@ -12,16 +12,17 @@
     }
   </style>
 </head>
+
 <body class="bg-white text-black transition-colors duration-500">
 
   <!-- Logo -->
   <div class="flex justify-center mt-10">
-    <img src="https://www.ue.edu.ph/mla/wp-content/uploads/2020/12/UE_RED_SEAL_09.png" alt="UE Logo" class="w-3/4 max-w-xs">
+    <img src="assets/uelogo.png" alt="UE Logo" class="w-3/4 max-w-xs">
   </div>
 
     <!-- Dark Mode Switch -->
   <div class="flex justify-center mt-4">
-    <div class="w-3/4 flex justify-start">
+    <div class="w-3/4 flex max-w-md">
       <label class="relative inline-block w-14 h-8">
         <input type="checkbox" id="darkModeToggle" class="hidden">
         <!-- Slider Background -->
@@ -46,36 +47,57 @@
 
   <!-- Password -->
   <div class="flex justify-center mt-6">
-    <input type="password" id="password" placeholder="Password" required
-      class="w-3/4 max-w-md h-12 px-3 text-white text-lg rounded-md outline-none bg-gradient-to-b from-[#731919] to-[#e52b2b] placeholder-white/70">
+    <input type="password" id="password" placeholder="Password" required class="w-3/4 max-w-md h-12 px-3 text-white text-lg rounded-md outline-none bg-gradient-to-b from-[#731919] to-[#e52b2b] placeholder-white/70">
   </div>
 
   <!-- Login Button -->
   <div class="flex justify-center mt-6">
-    <button onclick="login()" class="w-3/4 max-w-md h-12 rounded-md text-lg text-white cursor-pointer bg-gradient-to-b from-[#731919] to-[#e52b2b] hover:opacity-90 transition duration-300">
-      Login
+    <button id="loginButton" onclick="login()" class="w-3/4 max-w-md h-12 rounded-md text-lg text-white cursor-pointer bg-gradient-to-b from-[#731919] to-[#e52b2b] hover:opacity-90 transition duration-300 border-none disabled:opacity-50 disabled:cursor-not-allowed">
+        Login
     </button>
   </div>
+  
 
   <!-- Error Message -->
   <p id="error-message" class="text-red-600 text-center mt-3 text-sm"></p>
 
-  <!-- Login Script -->
+  <!-- Login and Dark modeScript -->
   <script>
-    function login() {
-      const correctUsername = "20230131723";
-      const correctPassword = "11/22/2004";
-
-      const enteredUsername = document.getElementById("username").value;
-      const enteredPassword = document.getElementById("password").value;
-      const errorMessage = document.getElementById("error-message");
-
-      if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
-        window.location.href = "page2.html"; // ✅ go to second page
-      } else {
-        errorMessage.textContent = "Incorrect username or password!";
-      }
+    const correctUsername = {
+      '20230131723': '11/22/2004',
+      '20230137390': '03/26/2005',
+      '20230114053' : '12/06/2004'
     }
+
+    function login() {
+      const enteredUsername = document.getElementById("username").value.trim();
+      const enteredPassword = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("error-message");
+      const loginButton = document.getElementById("loginButton");
+
+      errorMessage.textContent = "";
+
+      // Show loading state
+      loginButton.disabled = true;
+      loginButton.textContent = "Logging in...";
+
+      setTimeout(() => {
+        // check if username exists and password matches
+        if (correctUsername[enteredUsername] && correctUsername[enteredUsername] === enteredPassword) {
+          window.location.href = "secondpage.html";
+        } else {
+          errorMessage.textContent = "Incorrect username or password!";
+          loginButton.disabled = false;
+          loginButton.textContent = "Login";
+        }
+      }, 2000);
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    });
 
     // Dark Mode Toggle
     const toggle = document.getElementById("darkModeToggle");
@@ -97,6 +119,5 @@
       }
     });
   </script>
-
 </body>
 </html>
